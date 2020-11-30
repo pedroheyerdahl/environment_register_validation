@@ -1,0 +1,2 @@
+# environment_register_validation
+Postgis/PyQgis geographic project validation/visualization suite
