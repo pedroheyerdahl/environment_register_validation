@@ -32,7 +32,7 @@ tables = {
 #conecta à bd do postgres e adiciona camadas ao mapa com o respectivo estilo
 for table in tables:
     uri = QgsDataSourceUri()
-    uri.setConnection("localhost", "5432", "idaf", "postgres", "048162")
+    uri.setConnection("connection", "port", "database", "users", defined_password)
     uri.setDataSource (schema, table, "geom")
     lyr = QgsVectorLayer(uri.uri(), table, "postgres")
 
