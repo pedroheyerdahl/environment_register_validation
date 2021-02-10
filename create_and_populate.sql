@@ -88,7 +88,7 @@ CREATE TABLE entrega_XX.lote_atp AS(
           ON l.num_recibo = sa.cod_imovel);
 
 ALTER TABLE entrega_XX.lote_atp
-    ADD teste_XX boolean,
+    ADD teste_01 boolean,
     ADD teste_02 boolean,
     ADD teste_03 boolean,
     ADD teste_04 boolean,
@@ -145,7 +145,6 @@ CREATE TABLE entrega_XX.base_arl AS
         FROM base_arl_temp
     GROUP BY cod_imovel, cod_emp, cod_imovel_lote, cod_emp_lote, municipio, lote;
 	
--- troca de join começou aqui
 CREATE TEMPORARY TABLE lote_arl_temp AS(
                 SELECT sr.id, 
                        sr.cod_imovel,
