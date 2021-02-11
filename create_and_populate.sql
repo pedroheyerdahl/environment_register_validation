@@ -82,7 +82,8 @@ CREATE TABLE entrega_XX.lote_atp AS(
              sa.ano_envio,
              sa.stat_simlam,
              sa.stat_sicar,
-             sa.geom
+             sa.geom,
+	          --ultima retificada:  (caso cod_imovel repetido na tabela entrega_xx.simlam, data da inscrição cancelada mais recente else data da inscrição valida)
         FROM sicar_XX.atp sa
         JOIN entrega_XX.imoveis l 
           ON l.num_recibo = sa.cod_imovel);
