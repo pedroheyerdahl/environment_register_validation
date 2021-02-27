@@ -1,3 +1,6 @@
+ALTER TABLE sicar_XX.simlam
+ALTER COLUMN data_envio TYPE date USING TO_DATE(data_envio,'DD/MM/YYYY');
+
 ALTER TABLE sicar_XX.atp
         ADD lote varchar,
         ADD doc_proprietario varchar,
@@ -7,8 +10,7 @@ ALTER TABLE sicar_XX.atp
         ADD requerimento varchar,
         ADD stat_simlam varchar,
         ADD stat_sicar varchar,
-        ADD mes_envio varchar,
-        ADD ano_envio varchar;
+        ADD data_envio date;
 
 UPDATE sicar_XX.atp
    SET doc_proprietario = sicar_XX.relatorio.doc_proprietario
@@ -27,43 +29,37 @@ UPDATE sicar_XX.atp
  
 UPDATE sicar_XX.atp
    SET num_solicitacao = s.num_solicitacao
-  FROM entrega_XX.simlam AS s
+  FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
  
 UPDATE sicar_XX.atp
    SET cod_emp = s.cod_emp
-  FROM entrega_XX.simlam AS s
+  FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
 
 UPDATE sicar_XX.atp
    SET requerimento = s.requerimento
-  FROM entrega_XX.simlam AS s
+  FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
  
 UPDATE sicar_XX.atp
    SET stat_simlam = s.stat_simlam
-  FROM entrega_XX.simlam AS s
+  FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
  
 UPDATE sicar_XX.atp
    SET stat_sicar = s.stat_sicar
-  FROM entrega_XX.simlam AS s
+  FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
  
 UPDATE sicar_XX.atp
-   SET mes_envio = s.mes_envio
-  FROM entrega_XX.simlam AS s
- WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
-   AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
- 
-UPDATE sicar_XX.atp
-   SET ano_envio = s.ano_envio
-  FROM entrega_XX.simlam AS s
+   SET data_envio = s.data_envio
+  FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
 
@@ -78,14 +74,13 @@ CREATE TABLE entrega_XX.lote_atp AS(
              sa.mod_fiscal, 
              sa.doc_proprietario, 
              sa.doc_cadastrante,
-             sa.mes_envio,
-             sa.ano_envio,
+             sa.data_envio,
              sa.stat_simlam,
              sa.stat_sicar,
              sa.geom
 	          --ultima retificada:  (caso cod_imovel repetido na tabela entrega_xx.simlam, data da inscrição cancelada mais recente else data da inscrição valida)
         FROM sicar_XX.atp sa
-        JOIN entrega_XX.imoveis l 
+        JOIN sicar_XX.imoveis l 
           ON l.num_recibo = sa.cod_imovel);
 
 ALTER TABLE entrega_XX.lote_atp
