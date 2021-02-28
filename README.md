@@ -11,7 +11,7 @@ WITH tab_min AS (
 SELECT s.cod_imovel, MIN(s.data_envio) AS minimo
 FROM sicar_07.simlam s
 WHERE s.cod_imovel IS NOT NULL
-GROUP BY s.cod_imovel),
+GROUP BY s.cod_imovel)
 
 
 SELECT n.cod_imovel, n.minimo AS primeiro_envio, x.data_envio 
