@@ -1,7 +1,7 @@
-ALTER TABLE sicar_07.simlam
+ALTER TABLE sicar_XX.simlam
 ALTER COLUMN data_emissao TYPE date USING TO_DATE(data_envio,'DD/MM/YYYY');
 
-ALTER TABLE sicar_07.simlam
+ALTER TABLE sicar_XX.simlam
 ALTER COLUMN data_envio TYPE date USING TO_DATE(data_envio,'DD/MM/YYYY');
 
 ALTER TABLE sicar_XX.atp
