@@ -62,7 +62,7 @@ UPDATE sicar_XX.atp
    SET data_envio = s.data_envio
   FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
-   AND (s.stat_simlam = 'valido' OR s.stat_simlam = 'substituido');
+   AND s.stat_sicar = 'arquivo entregue';
 
 CREATE TABLE entrega_XX.lote_atp AS(
       SELECT sa.id, 
