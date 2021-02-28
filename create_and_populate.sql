@@ -78,8 +78,8 @@ UPDATE sicar_XX.atp
  WHERE sicar_XX.atp.cod_imovel = r.cod_imovel;
 
 CREATE TABLE entrega_XX.lote_atp AS(
-      SELECT sa.id, 
-             sa.cod_imovel,
+      SELECT l.id, 
+             l.num_recibo as cod_imovel,
              sa.cod_emp,
              sa.num_solicitacao,
              sa.requerimento,
@@ -93,8 +93,8 @@ CREATE TABLE entrega_XX.lote_atp AS(
              sa.stat_simlam,
              sa.stat_sicar,
              sa.geom
-        FROM sicar_XX.atp sa
-        JOIN sicar_XX.imoveis l 
+        FROM sicar_XX.imoveis l
+   LEFT JOIN sicar_XX.atp sa 
           ON l.num_recibo = sa.cod_imovel);
 
 ALTER TABLE entrega_XX.lote_atp
@@ -110,6 +110,7 @@ ALTER TABLE entrega_XX.lote_atp
     ADD teste_10 boolean,
     ADD teste_11 boolean,
     ADD teste_12 boolean,
+    ADD teste_13 boolean,
     ADD geral boolean;
 
 CREATE TABLE entrega_XX.base_atp AS (
