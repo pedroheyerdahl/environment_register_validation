@@ -89,7 +89,7 @@ CREATE TABLE entrega_XX.lote_atp AS(
              sa.doc_proprietario, 
              sa.doc_cadastrante,
              sa.data_envio,
-             sa.envio_prev
+             sa.envio_prev,
              sa.stat_simlam,
              sa.stat_sicar,
              sa.geom
