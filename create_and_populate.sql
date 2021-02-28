@@ -72,10 +72,10 @@ CREATE TEMPORARY TABLE retificados AS (
                  WHERE s.stat_sicar = 'arquivo retificado'
               GROUP BY s.cod_imovel);
 
-UPDATE sicar_07.atp
+UPDATE sicar_XX.atp
    SET envio_prev = r.maximo
   FROM retificados AS r
- WHERE sicar_07.atp.cod_imovel = r.cod_imovel;
+ WHERE sicar_XX.atp.cod_imovel = r.cod_imovel;
 
 CREATE TABLE entrega_XX.lote_atp AS(
       SELECT sa.id, 
@@ -89,10 +89,10 @@ CREATE TABLE entrega_XX.lote_atp AS(
              sa.doc_proprietario, 
              sa.doc_cadastrante,
              sa.data_envio,
+             sa.envio_prev
              sa.stat_simlam,
              sa.stat_sicar,
              sa.geom
-	          --ultima retificada:  (caso cod_imovel repetido na tabela entrega_xx.simlam, data da inscrição cancelada mais recente else data da inscrição valida)
         FROM sicar_XX.atp sa
         JOIN sicar_XX.imoveis l 
           ON l.num_recibo = sa.cod_imovel);
