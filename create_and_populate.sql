@@ -12,6 +12,7 @@ ALTER TABLE sicar_XX.atp
         ADD stat_simlam varchar,
         ADD stat_sicar varchar,
         ADD data_envio date;
+        ADD envio_prev date;
 
 UPDATE sicar_XX.atp
    SET doc_proprietario = sicar_XX.relatorio.doc_proprietario
@@ -63,6 +64,18 @@ UPDATE sicar_XX.atp
   FROM sicar_XX.simlam AS s
  WHERE sicar_XX.atp.cod_imovel = s.cod_imovel
    AND s.stat_sicar = 'arquivo entregue';
+   
+CREATE TEMPORARY TABLE retificados AS (
+                SELECT s.cod_imovel,
+                       MAX(s.data_emissao) AS maximo
+                  FROM sicar_07.simlam s 
+                 WHERE s.stat_sicar = 'arquivo retificado'
+              GROUP BY s.cod_imovel);
+
+UPDATE sicar_07.atp
+   SET envio_prev = r.maximo
+  FROM retificados AS r
+ WHERE sicar_07.atp.cod_imovel = r.cod_imovel;
 
 CREATE TABLE entrega_XX.lote_atp AS(
       SELECT sa.id, 
