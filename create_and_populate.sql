@@ -11,7 +11,7 @@ ALTER TABLE sicar_XX.atp
         ADD requerimento varchar,
         ADD stat_simlam varchar,
         ADD stat_sicar varchar,
-        ADD data_envio date;
+        ADD data_envio date,
         ADD envio_prev date;
 
 UPDATE sicar_XX.atp
@@ -68,7 +68,7 @@ UPDATE sicar_XX.atp
 CREATE TEMPORARY TABLE retificados AS (
                 SELECT s.cod_imovel,
                        MAX(s.data_emissao) AS maximo
-                  FROM sicar_07.simlam s 
+                  FROM sicar_XX.simlam s 
                  WHERE s.stat_sicar = 'arquivo retificado'
               GROUP BY s.cod_imovel);
 
