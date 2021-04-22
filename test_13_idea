@@ -1,0 +1,11 @@
+UPDATE entrega_09.lote_atp la
+SET suspensao = (
+    SELECT 
+        CASE 
+             WHEN la.data_envio >= '2021-03-09' 
+             THEN TRUE
+             WHEN la.data_envio < '2021-03-09'
+             THEN FALSE
+             ELSE NULL 
+        END
+    );
